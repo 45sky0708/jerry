@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+    <br />
+    <div>
+        <label>Input your EmpNumber :</label>
+        <input type="text" id="empnumber" class="form-inline" />
+        <input type="button" id="btnSearch" value="Search" class="btn btn-info" />
+    </div>
+
+    @*alertify*@
+    <link href="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.core.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.default.css" rel="stylesheet">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.min.js"></script>
+
+    <div id="ShowData"></div>
+
+    <script>
+        $(function () {
+
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("ShowData")',
+                dataType: 'html',
+                success: function (r) {
+                    $('#ShowData').html(r);
+                }
+            });
+
+            $('#btnSearch').click(function () {
+                if ($('#empnumber').val() == '') {
+                    alertify.alert('無資料');
+                    return;
+                }
+                $.ajax({
+                    type: 'GET',
+                    data: { empnumber: $('#empnumber').val() },
+                    url: '@Url.Action("ShowData")',
+                    dataType: 'html',
+                    success: function (r) {
+                        $('#ShowData').html(r);
+                    }
+                });
+            });
+
+        });
+    </script>
+
+    @*輪播*@
+    <div>
+        <div id="carousel1" class="carousel slide" data-ride="carousel" data-interval="3000">
+            <ul class="carousel-indicators">
+                <li data-target="#carousel1" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel1" data-slide-to="1"></li>
+                <li data-target="#carousel1" data-slide-to="2"></li>
+            </ul>
+            <div class="carousel-inner">
+                <div class="item active">
+                    <label>Input</label>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <label>your</label>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <label> EmpNumber</label>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+            </div>
+            <a class="left carousel-control" href="#carousel1" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel1" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+    </div>

@@ -1,0 +1,48 @@
+﻿@model  Emp0910.Models.FormViewModel
+
+
+
+<br />
+@if (Model.IsSuccess)
+{
+    <div class="alert alert-danger">@Model.Msg</div>
+    <table class="table table-bordered">
+        <tr>
+            <th></th>
+            <th>EmpNumber</th>
+            <th>EmpName</th>
+            <th>EmpSex</th>
+            <th>EmpBirthday</th>
+            <th>CreationDate</th>
+            <th>LastloginDate</th>
+            <th>Seniority</th>
+            <th>UnitNumber</th>
+            <th>UnitName</th>
+            <th>JobTitle</th>
+        </tr>
+        @foreach (var item in Model.empdata) //C#
+        {
+            <tr>
+
+                
+                <td><a href='@Url.Action("Edit")?empnumber=@item.EmpNumber' class="btn btn-info">Edit</a></td>    @*按鈕動作*@            
+                <td>@item.EmpNumber</td>
+                <td>@item.EmpName </td>
+                <td>@item.EmpSex</td>
+                <td>@item.EmpBirthdayDataFormat</td>
+                <td>@item.CreationDateDataFormat</td>
+                <td>@item.LastloginDateDataFormat</td>
+                <td>@item.Seniority</td>
+                <td>@item.UnitNumber</td>
+                <td>@item.UnitName</td>
+                <td>@item.JobTitle</td>
+
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div class="alert alert-danger">@Model.Msg</div>
+}
+

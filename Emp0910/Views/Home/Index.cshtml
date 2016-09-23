@@ -1,0 +1,36 @@
+﻿@model  List<Emp0910.Models.EmpViewModel>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>EmpNumber</th>
+        <th>EmpName</th>    
+        <th>EmpSex</th>
+        <th>EmpBirthday</th>
+        <th>CreationDate</th>
+        <th>LastloginDate</th>
+        <th>Seniority</th>
+        <th>UnitNumber</th>
+        <th>UnitName</th>
+        <th>JobTitle</th>
+    </tr>
+    @foreach (var item in Model) //C#
+    {
+        <tr>
+            <td>@item.EmpNumber</td>
+            <td>@item.EmpName </td>
+            <td>@item.EmpSex</td>
+            <td>@item.EmpBirthday</td>
+            <td>@item.CreationDate</td>
+            <td>@item.LastloginDate</td>
+            <td>@item.Seniority</td>
+            <td>@item.UnitNumber</td>
+            <td>@item.UnitName</td>
+            <td>@item.JobTitle</td> 
+
+        </tr>
+    }
+</table>
+

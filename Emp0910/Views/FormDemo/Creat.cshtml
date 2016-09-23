@@ -1,0 +1,164 @@
+﻿@model Emp0910.Models.EmpViewModel
+
+@{
+    ViewBag.Title = "Creat";
+}
+
+@*jquery 引用*@
+<form>
+    @*datepicker*@
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+  $( function() {
+      $("#EmpBirthday").datepicker(),
+      $("#CreationDate").datepicker(),
+      $("#LastloginDate").datepicker();
+  } );
+    </script>
+    @*alertify*@
+    <link href="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.core.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.default.css" rel="stylesheet">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.10/alertify.min.js"></script>
+
+    @*表單驗證*@
+    <script src="~/Scripts/jquery.validate.js"></script>
+    
+    
+</form>
+
+<br />
+@*修改欄位*@
+
+<form class="form-horizontal" id="form" role="form" method="get" >
+    <div class="form-group">
+        <label  class="col-sm-2 control-label">EmpNumber</label>
+        <div class="col-sm-10">
+            <input type="text" id="EmpNumber" class="form-control" value="@Model.EmpNumber"  disabled="disabled">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">EmpName</label>
+        <div class="col-sm-10">
+            <input type="email" id="EmpName" class="form-control" required @*value="@Model.EmpName"*@>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">EmpSex</label>
+        <div class="col-sm-10">
+            <input type="email" id="EmpSex" class="form-control" required @*value="@Model.EmpSex"*@>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">EmpBirthday</label>
+        <div class="col-sm-10">
+            <input type="text" id="EmpBirthday" class="form-control" @*value="@Model.EmpBirthdayDataFormat"*@>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">CreationDate</label>
+        <div class="col-sm-10">
+            <input type="text" id="CreationDate" class="form-control" @*value="@Model.CreationDateDataFormat"*@>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">LastloginDate</label>
+        <div class="col-sm-10">
+            <input type="text" id="LastloginDate" class="form-control" @*value="@Model.LastloginDateDataFormat"*@>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Seniority</label>
+        <div class="col-sm-10">
+            <input type="text" id="Seniority" class="form-control" @*value="@Model.Seniority"*@>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">UnitNumber</label>
+        <div class="col-sm-10">
+            <input type="text" id="UnitNumber" class="form-control" @*value="@Model.UnitNumber"*@>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">UnitName</label>
+        <div class="col-sm-10">
+            <input type="text" id="UnitName" class="form-control" @*value="@Model.UnitName"*@>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">JobTitle</label>
+        <div class="col-sm-10">
+            <input type="text" id="JobTitle" class="form-control" @*value="@Model.JobTitle"*@>
+        </div>
+    </div>
+
+</form>
+
+@*表單驗證*@
+<script>
+    $("#form").validate();
+</script>
+
+
+@*按鈕*@
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="button" id="btnSave" value="Save" class="btn btn-info" />
+    </div>
+</div>
+
+<div id="Creat"></div>
+
+@*AJAX*@
+<script>
+    $(function () {
+
+        $('#btnSave').click(function () {
+            //不允許NULL 
+
+          
+            if ($('#EmpName').val() == '' ||
+                $('#EmpSex').val() == ''||
+                $('#EmpBirthday').val() == '' ||
+                $('#CreationDate').val() == '' ||
+                $('#LastloginDate').val() == '' ||
+                $('#Seniority').val() == '' ||
+                $('#UnitNumber').val() == '' ||
+                $('#UnitName').val() == '' ||
+                $('#JobTitle').val() == '') {
+                alertify.alert('Creat失敗');
+                return;
+                }
+            //if ($('#EmpNumber').val() == empnumber) {
+            //    alertify.alert('ID重複');
+            //    return;
+            //}
+            var empObj = {
+                EmpNumber: $('#EmpNumber').val(),  //JSON物件
+                EmpName: $('#EmpName').val(),
+                EmpSex: $('#EmpSex').val(),
+                EmpBirthday: $('#EmpBirthday').val(),
+                CreationDate: $('#CreationDate').val(),
+                LastloginDate: $('#LastloginDate').val(),
+                Seniority: $('#Seniority').val(),
+                UnitNumber: $('#UnitNumber').val(),
+                UnitName: $('#UnitName').val(),
+                JobTitle: $('#JobTitle').val(),
+            };
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify(empObj),
+                url: '@Url.Action("Creat")',
+                dataType: 'JSON',
+                contentType: "application/json",
+                success: function (r) {
+                    alert('Creat成功');
+                    window.location.href = "index";
+                }
+            });
+        });
+    });
+
+</script>

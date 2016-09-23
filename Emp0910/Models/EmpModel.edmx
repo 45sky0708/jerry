@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EmpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EmpPersonal">
+          <Key>
+            <PropertyRef Name="EmpNumber" />
+          </Key>
+          <Property Name="EmpNumber" Type="int" Nullable="false" StoreGeneratedPattern="None" />
+          <Property Name="EmpName" Type="varchar" MaxLength="50" />
+          <Property Name="EmpSex" Type="varchar" MaxLength="50" />
+          <Property Name="EmpBirthday" Type="datetime" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="LastloginDate" Type="datetime" />
+          <Property Name="Seniority" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="EmpUnit">
+          <Key>
+            <PropertyRef Name="EmpNumber" />
+          </Key>
+          <Property Name="EmpNumber" Type="int" Nullable="false" StoreGeneratedPattern="None" />
+          <Property Name="UnitNumber" Type="varchar" MaxLength="50" />
+          <Property Name="UnitName" Type="varchar" MaxLength="50" />
+          <Property Name="JobTitle" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="EmpModelStoreContainer">
+          <EntitySet Name="EmpPersonal" EntityType="Self.EmpPersonal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmpUnit" EntityType="Self.EmpUnit" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EmpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EmpUnit">
+          <Key>
+            <PropertyRef Name="EmpNumber" />
+          </Key>
+          <Property Name="EmpNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="UnitNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UnitName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="EmpEntity" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EmpUnit" EntityType="Self.EmpUnit" />
+          <EntitySet Name="EmpPersonal" EntityType="EmpModel.EmpPersonal" />
+        </EntityContainer>
+        <EntityType Name="EmpPersonal">
+          <Key>
+            <PropertyRef Name="EmpNumber" />
+          </Key>
+          <Property Name="EmpNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="EmpName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmpSex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmpBirthday" Type="DateTime" Precision="3" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="LastloginDate" Type="DateTime" Precision="3" />
+          <Property Name="Seniority" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EmpModelStoreContainer" CdmEntityContainer="EmpEntity">
+          <EntitySetMapping Name="EmpUnit">
+            <EntityTypeMapping TypeName="EmpModel.EmpUnit">
+              <MappingFragment StoreEntitySet="EmpUnit">
+                <ScalarProperty Name="EmpNumber" ColumnName="EmpNumber" />
+                <ScalarProperty Name="UnitNumber" ColumnName="UnitNumber" />
+                <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmpPersonal">
+            <EntityTypeMapping TypeName="EmpModel.EmpPersonal">
+              <MappingFragment StoreEntitySet="EmpPersonal">
+                <ScalarProperty Name="Seniority" ColumnName="Seniority" />
+                <ScalarProperty Name="LastloginDate" ColumnName="LastloginDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="EmpBirthday" ColumnName="EmpBirthday" />
+                <ScalarProperty Name="EmpSex" ColumnName="EmpSex" />
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="EmpNumber" ColumnName="EmpNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
